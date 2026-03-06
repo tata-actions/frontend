@@ -1,0 +1,13 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "frontend",
+  "scripts": {
+    "test": "echo \"These test are done bty developers\" "
+  },
+  "author": "SteveW",
+  "license": "Apache-2.0",
+  "dependencies": {
+    
+  }
+}
