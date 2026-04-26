@@ -1,4 +1,4 @@
-FROM nginx:1.27-bookworm-slim
+FROM nginx:1.27-bookworm
 RUN rm /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /var/cache/nginx/client_temp && \
