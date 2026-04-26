@@ -3,15 +3,17 @@ FROM nginx:1.27-alpine
 # Remove default configs
 RUN rm -f /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Fix permissions BEFORE switching user
-RUN mkdir -p /var/cache/nginx /var/run /var/log/nginx && \
+# Create required dirs + fix permissions
+RUN mkdir -p /var/cache/nginx \
+    /var/run \
+    /var/log/nginx && \
     chown -R nginx:nginx /var/cache/nginx /var/run /var/log/nginx /etc/nginx
 
-# Copy config and static files
+# Copy config + app
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY static /usr/share/nginx/html/
 
-# Ensure nginx can read files
+# Fix static file permissions
 RUN chown -R nginx:nginx /usr/share/nginx/html
 
 # Run as non-root
