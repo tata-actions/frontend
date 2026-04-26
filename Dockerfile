@@ -1,5 +1,4 @@
-FROM FROM gcr.io/distroless/nginx
-
+FROM nginx:1.27-bookworm
 RUN rm /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 RUN mkdir -p /var/cache/nginx/client_temp && \
