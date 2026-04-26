@@ -3,17 +3,18 @@ FROM nginx:1.27-alpine
 # Remove default configs
 RUN rm -f /etc/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
-# Update Alpine packages (safe + reduces CVEs)
-RUN apk update && apk upgrade --no-cache
+# Fix permissions BEFORE switching user
+RUN mkdir -p /var/cache/nginx /var/run /var/log/nginx && \
+    chown -R nginx:nginx /var/cache/nginx /var/run /var/log/nginx /etc/nginx
 
-# Copy custom config and static files
+# Copy config and static files
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY static /usr/share/nginx/html/
 
-# Fix only required permissions
-RUN chown -R nginx:nginx /usr/share/nginx/html /etc/nginx
+# Ensure nginx can read files
+RUN chown -R nginx:nginx /usr/share/nginx/html
 
-# Use non-root user
+# Run as non-root
 USER nginx
 
 EXPOSE 80
